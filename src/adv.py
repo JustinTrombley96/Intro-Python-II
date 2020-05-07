@@ -26,7 +26,7 @@ earlier adventurers. The only exit is to the south."""),
 
 # Link rooms together
 
-room['outside'].secret = room['spaceship']
+room['outside'].secret_to = room['spaceship']
 room['spaceship'].n_to = room['outside']
 room['outside'].n_to = room['foyer']
 room['foyer'].s_to = room['outside']
@@ -46,8 +46,12 @@ room['treasure'].s_to = room['narrow']
 
 # Make a new player object that is currently in the 'outside' room.
 
-player = Player(input("Please enter your name: "), room['outside'])
-
+player = Player(input("\nPlease enter your name: "), room['outside'])
+if player.name == "Hexley":
+    print(f"\nWelcome, Doctor {player.name}.\n")
+else:
+    print(f"\nHello, {player.name}\n")
+print(player.current_room)
 
 
 
@@ -62,51 +66,18 @@ player = Player(input("Please enter your name: "), room['outside'])
 #
 # If the user enters "q", quit the game.
 
+valid_directions = ("n", "s", "e", "w", "secret")
+
 # LOOP
-
-if player.name == "Hexley":
-    print(f"It's great to see you again, Doctor.")
-else:
-    print(f"Hello, {player.name}")
-
-    while True:
-        print(player.current_room.name)
-        print("")
-        print(player.current_room.description)
-
-        
-
-        # READ
-        cmd = input("~~> ")
-    # EVAL
-        if cmd == "q":
-            print("Goodbye!")
-            exit(0)
-        elif cmd == "n":
-            if player.current_room.n_to is not None:
-                player.current_room = player.current_room.n_to
-            else:
-                print("You cannot move in that direction.")
-        elif cmd == "e":
-            if player.current_room.e_to is not None:
-                player.current_room = player.current_room.e_to
-            else:
-                print("You cannot move in that direction.")
-        elif cmd == "s":
-            if player.current_room.s_to is not None:
-                player.current_room = player.current_room.s_to
-            else:
-                print("You cannot move in that direction.")
-        elif cmd == "w":
-            if player.current_room.w_to is not None:
-                player.current_room = player.current_room.w_to
-            else:
-                print("You cannot move in that direction.")
-        elif cmd == "secret":
-            if player.current_room.secret is not None:
-                player.current_room = player.current_room.secret
-            else: 
-                print("Nice try")
-        else:
-            print("I did not understand that command")
+while True:
+    # READ
+    cmd = input("~~> ")
+# EVAL
+    if cmd == "q":
+        print("Goodbye!")
+        exit(0)
+    elif cmd in valid_directions:
+        player.travel(cmd)
+    else:
+        print("I did not understand that command")
 # PRINT
