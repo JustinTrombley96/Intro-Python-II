@@ -4,6 +4,7 @@ from player import Player
 # Declare all the rooms
 
 room = {
+    'spaceship':   Room("Space Ship", "You step onto the spaceship and find a space gun."),
     'outside':  Room("Outside Cave Entrance",
                      "North of you, the cave mount beckons"),
 
@@ -25,6 +26,8 @@ earlier adventurers. The only exit is to the south."""),
 
 # Link rooms together
 
+room['outside'].secret = room['spaceship']
+room['spaceship'].n_to = room['outside']
 room['outside'].n_to = room['foyer']
 room['foyer'].s_to = room['outside']
 room['foyer'].n_to = room['overlook']
@@ -45,7 +48,10 @@ room['treasure'].s_to = room['narrow']
 
 player = Player(input("Please enter your name: "), room['outside'])
 
-print(f"Hello, {player.name}")
+if player.name == "Hexley":
+    print(f"It's great to see you again, Doctor.")
+else:
+    print(f"Hello, {player.name}")
 
 
 # Write a loop that:
@@ -60,10 +66,14 @@ print(f"Hello, {player.name}")
 # If the user enters "q", quit the game.
 
 # LOOP
+
 while True:
     print(player.current_room.name)
     print("")
     print(player.current_room.description)
+
+    
+
     # READ
     cmd = input("~~> ")
 # EVAL
@@ -90,6 +100,11 @@ while True:
             player.current_room = player.current_room.w_to
         else:
             print("You cannot move in that direction.")
+    elif cmd == "secret":
+        if player.current_room.secret is not None:
+            player.current_room = player.current_room.secret
+        else: 
+            print("Nice try")
     else:
         print("I did not understand that command")
 # PRINT
