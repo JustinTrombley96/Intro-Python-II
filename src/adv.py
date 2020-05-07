@@ -45,7 +45,7 @@ room['treasure'].s_to = room['narrow']
 
 player = Player(input("Please enter your name: "), room['outside'])
 
-#print(f"Hello, {player.name}")
+print(f"Hello, {player.name}")
 
 
 # Write a loop that:
@@ -70,6 +70,26 @@ while True:
     if cmd == "q":
         print("Goodbye!")
         exit(0)
+    elif cmd == "n":
+        if player.current_room.n_to is not None:
+            player.current_room = player.current_room.n_to
+        else:
+            print("You cannot move in that direction.")
+    elif cmd == "e":
+        if player.current_room.e_to is not None:
+            player.current_room = player.current_room.e_to
+        else:
+            print("You cannot move in that direction.")
+    elif cmd == "s":
+        if player.current_room.s_to is not None:
+            player.current_room = player.current_room.s_to
+        else:
+            print("You cannot move in that direction.")
+    elif cmd == "w":
+        if player.current_room.w_to is not None:
+            player.current_room = player.current_room.w_to
+        else:
+            print("You cannot move in that direction.")
     else:
         print("I did not understand that command")
 # PRINT
