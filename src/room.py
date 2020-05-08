@@ -23,17 +23,17 @@ class Room:
         return_string += (self.name)
         return_string += "\n\n"
         return_string += self.description
-        return_string += "\n"
+        return_string += "\n\n"
         return_string += f"{self.get_exits_string()}"
         return return_string
     def get_exits_string(self):
-            exits = []
-            if self.n_to:
-                exits.append("n")
-            if self.s_to:
-                exits.append("s")
-            if self.e_to:
-                exits.append("e")
-            if self.w_to:
-                exits.append("w")
-            return exits
+        exits = []
+        if self.n_to:
+            exits.append("n")
+        if self.s_to:
+            exits.append("s")
+        if self.e_to:
+            exits.append("e")
+        if self.w_to:
+            exits.append("w")
+        return exits

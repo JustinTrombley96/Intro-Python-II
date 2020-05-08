@@ -1,5 +1,6 @@
 from room import Room
 from player import Player
+from item import Item, Potion
 
 # Declare all the rooms
 
@@ -40,6 +41,10 @@ room['treasure'].s_to = room['narrow']
 # print(room['outside'].n_to.name)
 # print(room['outside'].n_to.description)
 
+note = Item("Note", "Beneath the Dragon's gaze.")
+potion = Potion("Potion", "It looks green.", 100)
+note2 = Item("Note 2", "Above the hole.")
+
 #
 # Main
 #
@@ -47,12 +52,17 @@ room['treasure'].s_to = room['narrow']
 # Make a new player object that is currently in the 'outside' room.
 
 player = Player(input("\nPlease enter your name: "), room['outside'])
+player.items.append(note)
+player.items.append(potion)
+
 if player.name == "Hexley":
     print(f"\nWelcome, Doctor {player.name}.\n")
 else:
     print(f"\nHello, {player.name}\n")
 print(player.current_room)
 
+player.drink(note)
+player.drink(potion)
 
 
 # Write a loop that:
@@ -66,7 +76,7 @@ print(player.current_room)
 #
 # If the user enters "q", quit the game.
 
-valid_directions = ("n", "s", "e", "w", "secret")
+valid_directions = ("n", "s", "e", "w", "secret",)
 
 # LOOP
 while True:
@@ -78,6 +88,11 @@ while True:
         exit(0)
     elif cmd in valid_directions:
         player.travel(cmd)
+    elif cmd == "p":
+        player.items.append(room.items.name)
+    elif cmd == "i":
+        player.print_inventory()
+
     else:
         print("I did not understand that command")
 # PRINT

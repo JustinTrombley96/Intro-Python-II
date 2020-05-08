@@ -12,3 +12,7 @@ class Item:
         self.name = name
         self.description = description
         
+class Potion(Item):
+    def __init__(self, name, description, health):
+        super().__init__(name, description)
+        self.health = health
